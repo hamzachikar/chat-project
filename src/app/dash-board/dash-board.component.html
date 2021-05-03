@@ -1,0 +1,142 @@
+<div class="container dasch">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-6">
+                <div class="icon-big text-center icon-warning">
+                  <img src="../../assets/img/mail.png" alt="">
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="numbers">
+                  <p class="card-category">demandes</p>
+                  <p class="card-title">{{nbrDemand}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-6">
+                <div class="icon-big text-center icon-warning">
+                  <img src="../../assets/img/open_mail.png" alt="">
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="numbers">
+                  <p class="card-category">en cours</p>
+                  <p class="card-title">{{nbrDemandOpen}}
+                    <p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-6">
+                <div class="icon-big text-center icon-warning">
+                  <img src="../../assets/img/mail_v.png" alt="">
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="numbers">
+                  <p class="card-category">resolues</p>
+                  <p class="card-title">
+                    {{nbrDemandResolved}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-body ">
+            <div class="row">
+              <div class="col-5 col-md-6">
+                <div class="icon-big text-center icon-warning">
+                  <img src="../../assets/img/msg_sent.png" alt="">
+                </div>
+              </div>
+              <div class="col-6 col-md-6">
+                <div class="numbers">
+                  <p class="card-category">Message</p>
+                  <p class="card-title">{{nbrMessage}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+<div class="row">
+      <div class="col-md-6">
+        <div class="card ">
+          <div class="card-header ">
+            <h5 class="card-title">Demand statistics</h5>
+          </div>
+          <div class="card-body ">
+            <canvas baseChart 
+              [data]="doughnutChartData"
+              [labels]="doughnutChartLabels"
+              [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card card-chart">
+          <div class="card-header">
+            <h5 class="card-title">statistique des demandes par service</h5>
+            <p class="card-category">Line Chart with Points</p>
+          </div>
+          <div class="card-body">
+            <canvas baseChart 
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+  </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row">
+      <div class="col-md-12">
+        <div class="card ">
+          <div class="card-header ">
+            <h5 class="card-title">statistique des demandes et messages cette annee</h5>
+            <p class="card-category"></p>
+          </div>
+          <div class="card-body ">
+            <canvas baseChart 
+            [datasets]="lineChartData" 
+            [labels]="lineChartLabels" 
+            [options]="lineChartOptions"
+            [colors]="lineChartColors" 
+            [legend]="lineChartLegend" 
+            [chartType]="lineChartType" 
+            [plugins]="lineChartPlugins">
+        </canvas>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+  

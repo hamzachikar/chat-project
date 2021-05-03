@@ -1,0 +1,120 @@
+<div class="chatBox">
+  
+    <div class="messaging">
+          <div class="inbox_msg">
+            <div *ngIf="!showContacts" class="inbox_people">
+              <div class="replacer">
+                <div class="rBack"></div>
+                <div class="rContent">
+                  <div class="chat_img"> 
+                    <img src="../../assets/img/dialogue.png" alt="sunil">
+                    <div class="cName">
+                      <h2>{{demand.type}}</h2>
+                      <h3>{{demand.msg}}</h3>
+                    </div>
+                  
+                   </div>
+                  
+                  </div>
+                </div>
+              </div>
+            <div *ngIf="showContacts" class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <h4>contacts</h4>
+                </div>
+               
+              </div>
+              <div class="inbox_chat">
+                <!--this for admin contacts-->
+                <div class="divider" *ngIf="adminContact.length!==0">
+                  <p>ADMINISTRATEUR</p>
+                </div>
+                <div class="chat_list" [class.active_chat]="isActive(contact[0])" *ngFor="let contact of adminContact">
+                  <div class="chat_people" (click)="setSelectedContact(contact[0]);contact[1]=0" >
+                    <div class="chat_img" > <img src="../../assets/img/avatar.png" alt="sunil"> </div>
+                    <div class="chat_ib">
+                      <h5 [matBadge]="contact[1]">{{contact[0].contact.nom}} {{contact[0].contact.prenom}}</h5>
+                    </div>
+                   
+                  </div>
+                </div>
+                <!--this for manager contacts-->
+                <div class="divider"  *ngIf="managerContact.length!==0">
+                  <p>MANAGER</p>
+                </div>
+                <div class="chat_list" [class.active_chat]="isActive(contact[0])" *ngFor="let contact of managerContact">
+                  <div class="chat_people" (click)="setSelectedContact(contact[0]);contact[1]=0">
+                    <div class="chat_img"> <img src="../../assets/img/avatar.png" alt="sunil"> </div>
+                    <div class="chat_ib">
+                      <h5  [matBadge]="contact[1]">{{contact[0].contact.nom}} {{contact[0].contact.prenom}}</h5>
+                    </div>
+                    
+                  </div>
+                </div>
+                <!--this for empl contacts-->
+                <div class="divider"  *ngIf="employeContact.length!==0">
+                  <p>EMPLOYEE</p>
+                </div>
+                <div class="chat_list" [class.active_chat]="isActive(contact[0])" *ngFor="let contact of employeContact">
+                  <div class="chat_people" (click)="setSelectedContact(contact[0])" >
+                    <div class="chat_img"> <img src="../../assets/img/avatar.png" alt="sunil"> </div>
+                    <div class="chat_ib">
+                      <h5  [matBadge]="contact[1]">{{contact[0].contact.nom}} {{contact[0].contact.prenom}}</h5>
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="messageB">
+              <div class="header_msgs" *ngIf="selectCompte.contact">
+                <img src="../../assets/img/avatar.png" alt="sunil"> 
+                <p>{{selectCompte.contact.nom}} {{selectCompte.contact.prenom}}</p>
+              </div>
+              <div class="mesgs select" *ngIf="!userForm.value.toId">
+                <h1>select a contact</h1>
+              </div>
+              <div class="mesgs" *ngIf="userForm.value.toId">
+              
+                <div #msgs  class="msg_history" >
+                  <div *ngFor="let msg of messages">
+                    <div class="incoming_msg" *ngIf="msg.att==1">
+                      
+                        <div class="received_withd_msg">
+                          <p>{{msg.message}}</p>
+                         </div>
+                    
+                    </div>
+                    <div class="outgoing_msg" *ngIf="msg.att==0">
+                      <div class="sent_msg">
+                        <p> {{msg.message}}</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="type_msg">
+                  <div class="input_msg_write">
+                      <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+                          <input type="text" autocomplete="off" formControlName="message" name="message"  class="write_msg" placeholder="Type a message" />
+                          <button mat-mini-fab class="msg_send_btn" type="submit" aria-label="Example icon button with a home icon">
+                             <mat-icon>send</mat-icon>
+                          </button>
+                          
+                      </form>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+              
+              
+              
+          
+           
+          
+           
+           
+          </div>
+    </div>
+</div>

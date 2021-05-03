@@ -1,0 +1,19 @@
+button,input{
+    outline: none; // this one   
+}
+.sideNav{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width:15%;
+}
+.content{
+    position: absolute;
+    padding-left: 0;
+    -ms-overflow-style: none;
+    width: 85%;
+    height: 100%;
+    left:15%;
+    overflow: auto;
+   
+}

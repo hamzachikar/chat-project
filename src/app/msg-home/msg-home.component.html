@@ -1,0 +1,177 @@
+<div class="container" *ngIf="checkRole('empl')">
+  <msg-box></msg-box>
+</div>
+<div class="container"  *ngIf="checkRole('client')">
+  <user-box></user-box>
+</div>
+<div class="container" *ngIf="checkRole('admin')">
+  <div *ngIf="srvMessage.length==0" class="textNoDmd"><h1>pas de demande ou reclamation recue</h1></div>  
+  <table *ngIf="srvMessage.length!=0" class="table table-striped table-dark">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">fromContact</th>
+            <th scope="col">date</th>
+            <th scope="col">type</th>
+            <th scope="col">message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let demand of srvMessage">
+            <th scope="row">{{demand[0].id}}</th>
+            <td>{{demand[0].fromContact.contact.nom}} {{demand[0].fromContact.contact.prenom}}</td>
+            <td>{{getDate(demand[0].dateSent)}}</td>
+            <td>{{demand[0].type}}</td>
+            <td>{{demand[0].msg}}</td>
+            <td><button (click)="validate(demand[0])" *ngIf="!demand[0].status" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button *ngIf="demand[0].status" (click)="closeCvr(demand[0])" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                <mat-icon>close</mat-icon>
+              </button></td>
+            <td>
+              <button *ngIf="demand[0].cvr.status==='WAIT'&&demand[0].type!=='informer une absence'" (click)="setRejectedDmd(demand[0])" data-toggle="modal" data-target="#descript" mat-mini-fab color="primary" aria-label="Example icon button with a filter list icon">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button *ngIf="demand[0].cvr.status==='open'&&demand[0].type!=='informer une absence'" (click)="demand[1]=0;selectedDemand=demand[0];msgBox.showContacts=false;msgBox.demand=demand[0];msgBox.setSelectedCvr(demand[0].cvr)" [matBadge]="demand[1]" data-toggle="modal" data-target="#messageBox" matBadgeColor="primary" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
+                <mat-icon>forum</mat-icon>
+              </button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div class="btnchat" *ngIf="checkRole('admin')">
+  <button 
+    (click)="msgBox.refresh();nbrMessageR=0"
+    [matBadge]="nbrMessageR" 
+    data-toggle="modal" 
+    data-target="#messageBox"  
+    mat-fab  color="warn" 
+    aria-label="Example icon button with a home icon">
+      <mat-icon>message</mat-icon>
+    </button>
+</div>
+<div class="btnNotif" >
+    <div class="notif">
+      <button [disabled]="notifMsg.length===0" 
+      (click)="nbrNotifReceived=0" 
+      data-toggle="modal"  
+      title="notification" 
+      data-target="#notifBox" 
+      [matBadge]="nbrNotifReceived"
+      mat-fab 
+      color="warn"
+      aria-label="Example icon button with a home icon">
+        <mat-icon>notifications_active</mat-icon>
+      </button>
+    </div>
+    <div class="addNotif">
+      <button *ngIf="checkRole('admin')"
+         title="envoyer une notif"
+          data-toggle="modal"
+           data-target="#addNotif"
+            data-dismiss="modal"
+             mat-mini-fab
+               color="warn"
+                aria-label="Example icon button with a home icon">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+</div>
+
+<div #msgModal class="modal fade" id="messageBox" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content content">
+        <div class="modal-body">
+          <div class="container-fluid">
+            <button type="button" class="close btnChatClose" (click)="msgBox.deselectContact()" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <msg-box (msgR)="notif($event)" #msgBox></msg-box>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="notifBox" #notifBox tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+       
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="cardNotif" *ngFor="let notif of notifMsg">
+              <div class="icon">
+                <img src="../../assets/img/bellNotif.png" alt="">
+              </div>
+              <div class="msgNotif">
+                <p>{{notif.msg}}</p>
+              </div>
+              <div class="btnNotif">
+                <button mat-fab (click)="notifValidate(notif)" color="warn" aria-label="Example icon button with a home icon">
+                  <mat-icon>done</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="addNotif" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content add">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="notifForm" (ngSubmit)="onSubmitNotifForm()">
+        <div class="modal-body">
+         
+            <div class="form-group">
+              <label  class="col-form-label">Service:</label>
+              <select class="form-control mb-4" formControlName="service" >
+                <option placeholder="s" *ngFor="let s of listService" [value]="s">{{s}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label  class="col-form-label">Message:</label>
+              <textarea formControlName="messageSrv" name="messageSrv" class="form-control" id="message-text"></textarea>
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Send message</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="descript" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content add">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">motif:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form [formGroup]="deleteForm" (ngSubmit)="reject()">
+        <div class="modal-body">
+         
+            <div class="form-group">
+              <textarea formControlName="description" name="description" class="form-control" id="message-text"></textarea>
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" #close class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">envoyer</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

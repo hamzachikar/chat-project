@@ -1,0 +1,116 @@
+button,input{
+    outline: none; // this one   
+}
+
+.container{
+    left: 3%;
+  position: absolute; 
+  height: 90%;
+  .textNoDmd{
+      position: absolute;
+      text-align: center;
+      padding-left:100px;
+      padding-right: 100px;
+      padding-top: 10px;
+      padding-bottom: 50px;
+      width: 60%;
+      height: 20%;
+      left: 20%;
+      top: 200px;
+      background-color: rgba(0, 0, 0, 0.274);
+      h1{
+          color: white;
+      }
+  }
+  ::-webkit-scrollbar {
+    display: none;
+
+}
+    .btn{
+        position: absolute;
+        right: 0;
+    }
+}
+.btnNotif{
+    top: 3%;
+    right: 2%;
+    position: absolute;
+    text-align:center;
+    .notif{
+        margin-bottom:5px ;
+    }
+}
+.btnchat{
+    bottom: 3%;
+    right: 2%;
+    position: absolute;
+}
+.contact{
+    position: absolute;
+    width: 10%;
+    height: 70%;
+    right: 0;
+}
+.modal-content{
+    border:0;
+    background-color: none;
+}
+.modal{
+    .modal-content{
+        background-color: unset;
+        border: 0;
+        .btnChatClose{
+            position: absolute;
+            right: 12%;
+            z-index: 1000;
+        }
+    }
+    .add{
+        background-color: white;
+    }
+    .container-fluid{
+        text-align: center;
+        .cardNotif{
+        position: relative;
+        width: 60%;
+        margin: 16px auto;
+        background-color: white;
+        border:1px solid #eee;
+        box-shadow: 0 2px 3px #ccc;
+        padding: 16px;
+        width:90%;
+        height: 200px;
+        .icon{
+            position: absolute;
+            width: 20%;
+            height: 100%;
+            padding-top: 3%;
+            img{
+                width:60%;
+            }
+        }
+        .msgNotif{
+            position: absolute;
+            width: 60%;
+            height: 100%;
+            left: 20%;
+            text-align: center;
+            padding-top:6%;
+            text-align: center;
+            p{
+                font-weight: 500;
+                font-size:150%;
+            }
+        }
+        .btnNotif{
+            position: absolute;
+            width: 20%;
+            text-align: center;
+            right: 0;
+            height: 100%;
+            padding-top: 6%;
+        }
+        }
+    }
+    
+}

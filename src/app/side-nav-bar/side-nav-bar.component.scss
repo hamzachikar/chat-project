@@ -1,0 +1,210 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600);
+
+body{
+  font-family: "Lato";
+  font-size: 100%; 
+	overflow-y: scroll; 
+ font-family: sans-serif; 
+ -ms-text-size-adjust: 100%; 
+ -webkit-text-size-adjust: 100%; 
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+  text-rendering: optimizeLegibility;
+  background-color: #fefefe;
+}
+a{
+  text-decoration: none;
+  transition:all 0.6s ease;
+  
+  &:hover{
+    transition:all 0.6s ease;
+  }
+}
+
+.app{
+  height: 100vh;
+}
+/* -------------
+Sidebar
+----------------*/
+.sidebar {
+  position: absolute;
+  //width: 33.3333%;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  overflow:hidden;
+  background-color:white;
+  -webkit-transform: translateZ(0);
+  visibility: visible;
+  -webkit-backface-visibility: hidden;
+  
+  header{
+    background-color: white;
+    width: 100%;
+    display:block;
+    padding: 0.75em	1em;
+    .profile-card {
+      text-align: center;
+      padding: 0 10px 10px 10px;
+     .profileImage{
+      position:relative;
+      display:block;
+      cursor:pointer;
+      overflow:hidden;
+      .content {
+        opacity:0;
+        font-size: 15px;
+        border-radius: 50%;
+        position:absolute;
+        top:0;
+        left:16%;
+        color:white;
+        background-color:rgba(0, 0, 0, 0.4);
+        width: 100px;
+        height: 100px;
+        -webkit-transition: all 400ms ease-out;
+        -moz-transition: all 400ms ease-out;
+        -o-transition: all 400ms ease-out;
+        -ms-transition: all 400ms ease-out;
+        transition: all 400ms ease-out;
+        text-align:center;
+      .text {
+          height:0;
+          opacity:1;
+          transition-delay: 0s;
+          transition-duration: 0.4s;
+          }
+        }
+        .content:hover { opacity:1; }  
+        .content:hover .text {
+          opacity:1;
+          transform: translateY(50px);
+          -webkit-transform: translateY(50px);
+          }
+     }
+      img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: 1s;
+      }
+     
+    }
+  }
+}
+
+/* -------------
+Sidebar Nav
+----------------*/
+.sidebar-nav {
+  position: fixed;
+  //width: 13em;
+  background-color: #19222a;
+  height: 100%;
+  width: 100%;
+  font-weight: 400; 
+  font-size: 1.2em;
+  overflow: auto;
+  padding-bottom: 6em;
+  z-index: 9;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+ 
+  
+  ul{
+    list-style:none;
+    display: block;
+    padding: 0;
+    margin: 0;
+     
+    li{
+      margin-left: 0;
+      padding-left: 0;
+      //min-width: 13em;
+      display:inline-block;
+      width: 100%;
+      
+      a{
+        color: rgba(255,255,255,0.9);
+        font-size: 0.75em;
+        padding: 1.05em	1em;
+        position: relative;
+        display:block;
+        
+        &:hover{
+          background-color: white;
+          color: black;
+          transition:all 0.6s ease;
+        }
+      }
+     
+/* -------------
+Sidebar: icons
+----------------*/
+      i{
+        font-size: 1.8em;
+        padding-right: 0.5em;
+        width: 100%;
+        display: inline;
+        vertical-align:middle;
+      }  
+    }
+    .active_link{
+      background-color: white;
+      a{
+        color: black;
+        i{
+          color: black;
+        }
+      }
+    } 
+  }
+
+/* -------------
+Chev elements
+----------------*/ 
+  & > ul > li > a:after {
+   
+    font-family: ionicons;
+    font-size: 0.5em;
+    width: 10px;
+    color: #fff;
+    position: absolute;
+    right: 0.75em;
+    top: 45%;
+  }
+/* -------------
+Nav-Flyout
+----------------*/
+  & .nav-flyout {
+    position: absolute;
+    color: rgba(0,0,0,0.9);
+    background-color: black;
+    z-index: 9;
+    left: 2.5em;
+    top: 0;
+    height: 100vh;
+    transform:translateX(100%);
+     transition:all 0.5s ease;
+   li:hover{
+     background-color: white;
+   }
+    a:hover{
+      background-color: white;
+    }
+  }
+
+/* -------------
+Hover
+----------------*/
+  & ul > li:hover{
+      .nav-flyout{
+      transform:translateX(0);
+      transition:all 0.5s ease;
+    }
+  }
+}

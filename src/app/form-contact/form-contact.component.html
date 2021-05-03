@@ -1,0 +1,104 @@
+<div class="formContent" >
+    <div *ngIf="submitted && registerForm.valid && valideSave" class="alert alert-success" role="alert">
+      contact et compte ajoute
+    </div>
+    <div  *ngIf="submitted && registerForm.invalid" class="alert alert-danger" role="alert">
+      formulaire invalide
+    </div>
+      <form class="text-center border border-light p-5" [formGroup]="registerForm" (ngSubmit)="onSubmitContactForm()" #contactForm="ngForm">
+          <p class="h4 mb-4">ajouter contact</p>
+      
+        <div class="col">
+          <div class="form-row">
+            <div class="col">
+                <!-- First name -->
+                <input type="text" required formControlName="nom"  [ngClass]="{ 'is-invalid': submitted && f.nom.errors }" name="nom" id="defaultRegisterFormFirstName" class="form-control mb-4" placeholder="nom">
+                <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                  <div *ngIf="f.nom.errors.required">nom required</div>
+              </div>
+            </div>
+            <div class="col">
+                <!-- Last name -->
+                <input type="text" required formControlName="prenom"  [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }" name="prenom" id="defaultRegisterFormLastName" class="form-control mb-4" placeholder="prenom">
+                <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+                  <div *ngIf="f.prenom.errors.required">prenom required</div>
+                </div>
+            </div>
+          </div>
+    
+        <!-- CIN -->
+          <input type="text" required formControlName="cin"  [ngClass]="{ 'is-invalid': submitted && f.cin.errors }" name="cin" id="defaultRegisterForm" class="form-control mb-4" placeholder="CIN">
+          <div *ngIf="submitted && f.cin.errors" class="invalid-feedback">
+            <div *ngIf="f.cin.errors.required">cin required</div>
+          </div>
+        <!--date-->
+          <input type="date" required formControlName="dateNaissance"  [ngClass]="{ 'is-invalid': submitted && f.dateNaissance.errors }" name="dateNaissance" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="situation">
+          <div *ngIf="submitted && f.dateNaissance.errors" class="invalid-feedback">
+           <div *ngIf="f.dateNaissance.errors.required">date required</div>
+          </div>
+        <!--nationalite-->
+          <input type="text" required formControlName="civilite"  name="nationalite"  [ngClass]="{ 'is-invalid': submitted && f.civilite.errors }" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="nationalite">
+          <div *ngIf="submitted && f.civilite.errors" class="invalid-feedback">
+            <div *ngIf="f.civilite.errors.required">nationalite required</div>
+          </div>
+        <!-- situation -->
+          <input type="text" required formControlName="situation"  [ngClass]="{ 'is-invalid': submitted && f.situation.errors }" name="situation" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="situation">
+          <div *ngIf="submitted && f.situation.errors" class="invalid-feedback">
+            <div *ngIf="f.situation.errors.required">situation required</div>
+          </div>
+            <select class="form-control mb-4"  formControlName="groupe">
+              <option placeholder="groupe" *ngFor="let g of listGroupe" [value]="g"> {{g}}</option>
+            </select>
+       <!-- gender-->
+           <div class="form-control mb-4">
+            
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" formControlName="sexe"  (change)="radioChangeHandler($event)" value="male" class="custom-control-input" id="defaultInline1" name="sexe">
+              <label class="custom-control-label" for="defaultInline1">male</label>
+            </div>
+    
+          <!-- Default inline 2--->
+            <div class="custom-control custom-radio custom-control-inline">
+             <input type="radio" formControlName="sexe"  (change)="radioChangeHandler($event)" value="female" class="custom-control-input" id="defaultInline2" name="sexe">
+              <label class="custom-control-label" for="defaultInline2">female</label>
+            </div>
+          </div>
+        </div>
+              <input type="text" formControlName="username"  [ngClass]="{ 'is-invalid': submitted && f.username.errors }" name="username" id="defaultRegisterFormFirstName" class="form-control mb-4" placeholder="username">
+              <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                <div *ngIf="f.username.errors.required">username required</div>
+            </div>
+            
+          <div class="form-row mb-4">
+              <div class="col">
+                  <input type="password" formControlName="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  name="password" id="defaultRegisterFormLastName" class="form-control" placeholder="password">
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                   <div *ngIf="f.password.errors.required">password required</div>
+                </div>
+                </div>
+              <div class="col">
+                  <input type="password" formControlName="passV"  [ngClass]="{ 'is-invalid': submitted && f.passV.errors }" name="passV"  id="defaultRegisterFormLastName" class="form-control" placeholder="confirm password">
+                  <div *ngIf="submitted && f.passV.errors" class="invalid-feedback">
+                    <div *ngIf="f.passV.errors.required">password required</div>
+                </div>
+                </div>
+          </div>
+  
+    
+      <div class="form-row  "> 
+          
+        <div class="col">
+          <select class="form-control" formControlName="role">
+            <option  placeholder="role" *ngFor="let role of roles" [value]="role.roleName">  {{role.roleName}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <mat-slide-toggle (change)="activateContact()">activate</mat-slide-toggle>
+        </div>
+    </div>
+      <!-- Sign up button -->
+      <button class="btn btn-info my-4 btn-block" type="submit">ajouter</button>
+    </form>
+      
+  </div>
+  

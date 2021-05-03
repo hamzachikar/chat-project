@@ -1,0 +1,112 @@
+<div class="container">
+  <div *ngFor="let sug of sugMsg" class="card" (click)="setSelectedSug(sug)" data-toggle="modal" data-target="#dmd" >
+      <div class="imgSug">
+        <img *ngIf="sug=='mon profile'" src="../../assets/img/profile.png">
+        <img *ngIf="sug=='demande de bultin scolaire'" src="../../assets/img/attendance.png">
+        <img *ngIf="sug=='demande d\'une fiche medicale'" src="../../assets/img/medicalrepo.png">
+        <img *ngIf="sug=='informer une absence'" src="../../assets/img/real-estate.png">
+        <img *ngIf="sug=='demande d\'emplois du temps'" src="../../assets/img/book.png">
+        <img *ngIf="sug=='informer une maladie'" src="../../assets/img/sick.png">
+        <img *ngIf="sug=='reclamation d\'une violance ou mal traitence'" src="../../assets/img/alert.png">
+        <img *ngIf="sug=='demande d\'une assistance medicale'" src="../../assets/img/nurse.png">
+        <img *ngIf="sug=='autre ...'" src="../../assets/img/question.png">   
+      </div>
+      <div class="textSug">
+        <h4>{{sug}}</h4>
+      </div>
+  </div>
+</div>
+<div class="btnDmd">
+  <button data-toggle="modal" data-target="#serviceMsgSent"  [matBadge]="nbrMessageReceived" (click)="nbrMessageReceived=0;loadDemandService()" mat-fab  color="warn" aria-label="Example icon button with a home icon">
+    <mat-icon> message</mat-icon>
+  </button>
+</div>
+<div  class="modal fade" id="dmd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content add">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{selectedSug}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form (ngSubmit)="onSubmitDemandForm()">
+      <div class="modal-body">
+       
+          <div class="form-group" *ngIf="selectedSug==='informer une absence'">
+            <label  class="col-form-label">nombre de jour d'absence: {{nbrJour}} jours</label>
+            <mat-slider thumbLabel style="width:300px;" [min]="min" [step]="step" [max]="max" [(ngModel)]="nbrJour" name="nbrJour"></mat-slider>
+          </div>
+          <div class="form-group" *ngIf="selectedSug==='autre ...'">
+            <label  class="col-form-label">sujet *</label>
+              <input type="text" [(ngModel)]="sujet" name="sujet" class="form-control" id="exampleInput">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label">motif: *</label>
+            <textarea  [(ngModel)]="description" class="form-control" name="description" id="message-text"></textarea>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #sendDmdService data-dismiss="modal">close</button>
+        <button type="submit" class="btn btn-primary" >envoyer</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div #demandBox class="modal fade" id="serviceMsgSent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">all demand service sent</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">demande</th>
+                <th scope="col">description</th>
+                <th scope="col">validation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let m of msgSrvSent">
+                <td>{{m[0].type}}</td>
+                <td>{{m[0].msg}}</td>
+                <td> 
+                  <mat-icon *ngIf="m[0].status">done</mat-icon>
+                  <mat-icon *ngIf="!m[0].status">close</mat-icon>
+                </td>
+                <td> 
+                  <button *ngIf="m[0].type!='informer une absence'" [disabled]="!m[0].status" [matBadge]="m[1]"(click)="m[1]=0;msgBox.showContacts=false;msgBox.demand=m[0];msgBox.setSelectedCvr(m[0].cvr)"  data-dismiss="modal" data-toggle="modal" data-target="#messageBox"  mat-mini-fab  color="warn" aria-label="Example icon button with a home icon">
+                    <mat-icon> forum</mat-icon>
+                  </button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+         
+        </div>
+        
+      </div>
+    </div>
+  </div>
+ 
+</div>
+<div class="modal fade" id="messageBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content content">
+      <div class="modal-body">
+        <div class="container-fluid">
+          <msg-box (msgR)="notif($event)" #msgBox></msg-box>
+        </div>    
+      </div>
+    </div>
+  </div>
+</div>

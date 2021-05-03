@@ -1,0 +1,9 @@
+<div (click)="beginEdit(value)" (focus)="beginEdit(value)">
+    <div   *ngIf="editing">      
+        <input [required]="required"  (blur)="onBlur($event)" [type]="type" [name]="value" [(ngModel)]="value" [placeholder]="label" />
+    </div>
+    <div  *ngIf="!editing">
+      <span   (focus)="beginEdit(value)" tabindex="0">{{value}}</span>
+    </div>
+  </div>
+  

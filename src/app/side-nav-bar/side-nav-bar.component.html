@@ -1,0 +1,45 @@
+<section class="app">
+    <aside class="sidebar">
+           <header>
+            <div class="profile-card">
+              <div class="signOut"> 
+                 <button mat-mini-fab color="warn" (click)="logout()" aria-label="Example icon button with a home icon">
+                  <mat-icon>exit_to_app</mat-icon>
+              </button></div>
+              <div class="header" *ngIf="logCompte.contact">
+                  <h2> {{logCompte.contact.prenom}} {{logCompte.contact.nom}}</h2>
+                  <h6>Role: {{getRole()}}</h6>
+                  <h6>Sevice: {{logCompte.contact.groupe}}</h6>
+              </div>
+              <div class="profileImage" *ngIf=retrievedImage>
+                <img [src]="retrievedImage">
+            </div>
+            <div class="profileImage" *ngIf=!retrievedImage>
+              <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+          </div>
+          </div>
+        </header>
+      <nav class="sidebar-nav">
+   
+        <ul>
+          <div *ngIf="checkRole('adminManager')">
+            <li  [class.active_link]="selectedLink==='dasch'" (click)="setSelectedLink('dasch')" >
+              <a routerLink="dasch"><i class="fa fa-bandcamp" aria-hidden="true"></i> <span>DaschBoard</span></a>
+            </li>
+          </div>
+         
+          <div *ngIf="checkRole('admin')">
+            <li [class.active_link]="selectedLink==='contact'" (click)="setSelectedLink('contact')">
+              <a routerLink="contact"><i class="fa fa-users" aria-hidden="true"></i><span>Contact</span></a>
+            </li> 
+            <li [class.active_link]="selectedLink==='history'" (click)="setSelectedLink('history')">
+              <a routerLink="history"><i class="fa fa-comments" aria-hidden="true"></i> <span>historique demandes</span></a>
+            </li>
+          </div>
+          <li [class.active_link]="selectedLink==='chat'" (click)="setSelectedLink('chat')">
+            <a routerLink="chat-box"><i class="fa fa-envelope" aria-hidden="true"></i><span>chatbox</span></a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+  </section>

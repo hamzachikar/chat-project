@@ -1,0 +1,6 @@
+<div class="container">
+    <msg-box *ngIf="getRole(logCompte)==='ROLE_ADMIN'||getRole(logCompte)==='ROLE_MANAGER'"></msg-box>
+    <user-box  *ngIf="getRole(logCompte)==='ROLE_USER'"></user-box>
+</div>
+
+    

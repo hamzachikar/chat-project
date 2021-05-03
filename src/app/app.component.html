@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div *ngIf="currentUser" class="sideNav">
+      <sideNav #sideNav (logOut)="logout()" ></sideNav>
+    </div>
+      <div class="container-fluid content">
+        <router-outlet></router-outlet>
+      </div>
+</div>
+ 
+
+

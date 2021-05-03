@@ -1,0 +1,14 @@
+@import '../../assets/scss/paper-dashboard.scss';
+button,input{
+  outline: none; // this one   
+}
+.container{
+    padding:10px;
+    position: absolute;
+    left: 5%;
+    -ms-overflow-style: none;
+    .card-stats{
+      height: 150px;
+    }
+}
+  

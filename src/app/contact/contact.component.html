@@ -1,0 +1,173 @@
+<div class="addBtn">
+  <button mat-fab data-toggle="modal" data-target="#form" color="primary" aria-label="Example icon button with a home icon">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div class="container table">
+<!--<mat-form-field class="example-form-field">
+  <mat-label>nom du contact</mat-label>
+  <input matInput type="text" name="searchString" [(ngModel)]="searchString">
+  <button mat-button  *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="searchString=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>-->
+
+<div class="tab">
+  <table mat-table [dataSource]="activeCompteSource" matSort class="mat-elevation-z8">
+
+     
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+ 
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> nom </th>
+      <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> prenom </th>
+      <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="cin">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> cin </th>
+      <td mat-cell *matCellDef="let element"> {{element.cin}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="date naissance">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> date naissance </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateNaissance}} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="groupe">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> groupe </th>
+        <td mat-cell *matCellDef="let element"> {{element.groupe}} </td>
+    </ng-container>
+    <ng-container  matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef >status</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="warn" data-toggle="tooltip" data-placement="right" title="desactiver le compte"  (click)="changeState(element)" aria-label="Example icon button with a delete icon">
+         <mat-icon>close</mat-icon>
+       </button>
+    </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5,10]" showFirstLastButtons></mat-paginator>
+</div>
+<div class="nActiveCBtn" *ngIf="nActiveContacts.length!==0">
+  <button mat-fab color="warn" data-toggle="tooltip" data-placement="top" title="comptes desactiver"  data-toggle="modal" data-target="#nActiveC" aria-label="Example icon button with a delete icon">
+    <mat-icon>lock</mat-icon>
+  </button> 
+</div>
+   
+<!--
+  <table  class="table table-striped table-dark">
+      <thead>
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">nom</th>
+          <th scope="col">prenom</th>
+          <th scope="col">date naissance</th>
+          <th scope="col">CIN</th>
+          <th scope="col">nationalite</th>
+          <th scope="col">situation</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of contacts| filter : 'nom' : searchString; let i = index">
+          <th scope="row">{{c.id}}</th>
+          <td (click)="modifieddContent()"><edit-input #nom [(ngModel)]="c.nom" type="text"></edit-input></td>
+          <td (click)="modifieddContent()"><edit-input #prenom [(ngModel)]="c.prenom" type="text"></edit-input></td>
+          <td (click)="modifieddContent()"><edit-input #date  [(ngModel)]="c.dateNaissance"   (click)="date.setType('date')" ></edit-input></td>
+          <td (click)="modifieddContent()"><edit-input #cin  [(ngModel)]="c.cin" type="text"></edit-input></td>
+          <td (click)="modifieddContent()"><edit-input #civilite  [(ngModel)]="c.civilite" type="text"></edit-input></td>
+          <td (click)="modifieddContent()"><edit-input #situation  [(ngModel)]="c.situation" type="text"></edit-input></td>
+          <td><button mat-mini-fab color="primary"(click)="update(c)" aria-label="Example icon button with a delete icon"><mat-icon>bookmark</mat-icon></button></td>
+          <td>  
+            <button mat-mini-fab color="primary" (click)="deleteContact(c.id)" aria-label="Example icon button with a delete icon">
+               <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+ --> 
+   <!--
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+     add
+    </button>
+   --> 
+    
+   <!-- Button trigger modal -->
+    
+   </div>
+   <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+            <form-contact (submitForm)="submitForm($event)"></form-contact>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+  <div class="modal fade" id="nActiveC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <table mat-table [dataSource]="nActiveCompteSource" matSort class="mat-elevation-z8">
+
+     
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> id </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+         
+            <ng-container matColumnDef="nom">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> nom </th>
+              <td mat-cell *matCellDef="let element"> {{element.nom}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="prenom">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> prenom </th>
+              <td mat-cell *matCellDef="let element"> {{element.prenom}} </td>
+            </ng-container>
+          
+         
+            <ng-container matColumnDef="cin">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> cin </th>
+              <td mat-cell *matCellDef="let element"> {{element.cin}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="date naissance">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> date naissance </th>
+                <td mat-cell *matCellDef="let element"> {{element.dateNaissance}} </td>
+              </ng-container>
+        
+            <ng-container matColumnDef="groupe">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> groupe </th>
+                <td mat-cell *matCellDef="let element"> {{element.groupe}} </td>
+            </ng-container>
+            <ng-container  matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef >status</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-mini-fab color="primary" data-toggle="tooltip" data-placement="right" title="activer le compte" (click)="changeState(element)" aria-label="Example icon button with a delete icon">
+                 <mat-icon>lock_open</mat-icon>
+               </button>
+            </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+   

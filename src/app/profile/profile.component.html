@@ -1,0 +1,151 @@
+<!--<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img" >
+                    <img  *ngIf="transform()" [src]="transform()"  alt="profile-img"/>
+                    <img *ngIf="!transform()" src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                    <div  class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" (change)="onFileChanged($event)" name="file"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                            <h5>
+                                {{compte.contact.prenom}} {{compte.contact.nom}}
+                            </h5>
+                            <h6>
+                               {{compte.contact.groupe}}
+                            </h6>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+            </div>
+        </div>
+        <div class="row profileContent">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>CIN:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{compte.contact.cin}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>nom & prenom:</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{compte.contact.prenom}} {{compte.contact.nom}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>date naissance</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{compte.contact.dateNaissance}}</p>
+                                    </div>
+                                </div>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </form>           
+</div>-->
+<div class="container">
+    <div class="inf-content">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img *ngIf="!transform()" src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                    <img alt="" *ngIf="transform()"  title="" class="img-circle img-thumbnail isTooltip" [src]="transform()" data-original-title="Usuario"> 
+                    <div  class="file btn btn-lg btn-primary">
+                        Change Photo
+                        <input type="file" (change)="onFileChanged($event)" name="file"/>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Information</strong><br>
+                <div class="table-responsive">
+                <table class="table table-condensed table-responsive table-user-information">
+                    <tbody>
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-asterisk text-primary"></span>
+                                    Identificacion                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{compte.contact.cin}} 
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-user  text-primary"></span>    
+                                    Name                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                               {{compte.contact.nom}}    
+                            </td>
+                        </tr>
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-cloud text-primary"></span>  
+                                    Lastname                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{compte.contact.prenom}}  
+                            </td>
+                        </tr>
+    
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-bookmark text-primary"></span> 
+                                    Username                                                
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{compte.username}} 
+                            </td>
+                        </tr>
+    
+    
+                        <tr>        
+                            <td>
+                                <strong>
+                                    <span class="glyphicon glyphicon-eye-open text-primary"></span> 
+                                    Group                                               
+                                </strong>
+                            </td>
+                            <td class="text-primary">
+                                {{compte.contact.groupe}} 
+                            </td>
+                        </tr>                          
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>               
